@@ -107,4 +107,56 @@ def p_empty(p):
 def p_double_expression_comparacion(p):
 	'''double_expression_comparacion : expression_comparacion OR expression_comparacion
 									 | expression_comparacion AND expression_comparacion'''
+ def p_numero_identificador(p):
+	'''numero_identificador : Numero
+							| Identificador'''
 	pass
+
+def p_expression_comparacion(p):
+	 '''expression_comparacion : numero_identificador Diferente numero_identificador
+            	               | numero_identificador Mayor numero_identificador
+            	               | numero_identificador MayorIgual numero_identificador
+            	               | numero_identificador Menor numero_identificador
+				               | numero_identificador MenorIgual numero_identificador
+				               | numero_identificador ComparacionIgual numero_identificador
+          		               '''
+def p_expression(p):
+	 '''expression : expression SignoMas expression
+            	   | expression SignoMenos expression
+            	   | expression SignoMultiplicar expression
+            	   | expression SignoDividir expression
+            	   | ParentesisIzquierdo expression ParentesisDerecho
+          		   | Numero
+				   | Identificador'''
+		
+
+def p_error(p):
+    if VERBOSE:
+        if p is not None:
+            print (chr(27)+"[1;31m"+"\t ERROR: Syntax error - Unexpected token" + chr(27)+"[0m")
+            print ("\t\tLine: "+str(p.lexer.lineno)+"\t=> "+str(p.value))
+        else:
+            print (chr(27)+"[1;31m"+"\t ERROR: Syntax error"+chr(27)+"[0m")
+            print ("\t\tLine:  "+str(java_lexer.lexer.lineno))
+
+    else:
+        raise Exception('syntax', 'error')
+
+parser = yacc.yacc()
+
+if __name__ == '__main__':
+    if (len(sys.argv) > 1):
+        script = sys.argv[1]
+
+        scriptfile = open(script, 'r')
+        scriptdata = scriptfile.read()
+        #print (scriptdata)
+
+        print (chr(27)+"[0;36m"+"INICIA ANALISIS SINTACTICO"+chr(27)+"[0m")
+        parser.parse(scriptdata, tracking=False)
+        #("No tienes errores sintacticos")
+        print (chr(27)+"[0;36m"+"TERMINA ANALISIS SINTACTICO"+chr(27)+"[0m")
+
+    else:
+        print (chr(27)+"[0;31m"+"Pase el archivo de JAVA como parametro:")
+        print (chr(27)+"[0;36m"+"\t$ python java_parser.py"+chr(27)+"[1;31m"+" <filename>.java"+chr(27)+"[0m")
