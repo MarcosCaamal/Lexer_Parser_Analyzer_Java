@@ -16,7 +16,7 @@ public class Prueba {
             int a = xd * 10 + (a*b);
             float b = 5 + a;
         }while (a<b || a>=5);
-        
+        private double lol;
         while (a!=b){
             System.out.println("Hola mundo");
         }

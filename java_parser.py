@@ -47,7 +47,13 @@ def p_declaration(p):
 def p_linea(p):
 	'''linea : tipado PuntoyComa
 			 | mensaje PuntoyComa
+			 | modificadores PuntoyComa
 			 '''
+	pass
+def p_modificadores(p):
+	'''modificadores : PUBLIC tipado
+					 | PRIVATE tipado
+					 | PROTECTED tipado'''
 	pass
 def p_tipado(p):
 	'''tipado : FLOAT assigment
@@ -107,7 +113,8 @@ def p_empty(p):
 def p_double_expression_comparacion(p):
 	'''double_expression_comparacion : expression_comparacion OR expression_comparacion
 									 | expression_comparacion AND expression_comparacion'''
- def p_numero_identificador(p):
+	pass
+def p_numero_identificador(p):
 	'''numero_identificador : Numero
 							| Identificador'''
 	pass
